@@ -1,0 +1,10 @@
+html, body {
+    background-color: var(--bs-gray-800);
+}
+.z-index-100{
+    z-index: 100;
+}
+.left-50{
+    left: 50%;
+    transform: translate(-50%, 0);
+}
