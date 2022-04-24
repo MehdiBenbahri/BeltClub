@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         Bet Club -
-        <?= $this->fetch('title') ?>
+        <?= $this->fetch('title'); ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 
@@ -20,14 +20,29 @@
 
 <nav class="navbar p-1 justify-content-between navbar-dark bg-dark position-relative">
     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-outline-warning"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Accueil </span><i class="bi bi-house"></i></button>
-        <button type="button" class="btn btn-outline-warning"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Évènement </span><i class="bi bi-calendar-event"></i></button>
+        <a href="<?= $this->Url->build('/') ?>" class="btn btn-outline-warning"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Accueil </span><i class="bi bi-house"></i></a></a>
+        <a class="btn btn-outline-warning"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Évènement </span><i class="bi bi-calendar-event"></i></a>
     </div>
     <img class="z-index-100 left-50 position-absolute" height="50rem" src="<?= $this->Url->build('/img/logo.png') ?>" alt="logo-grande-faucheuse">
     <div>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#connectionModal" class="btn btn-warning">Connexion <i class="bi bi-box-arrow-in-right"></i><i class="fa-solid fa-user"></i></button>
+        <?php if (!$user){  ?>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#connectionModal" class="btn btn-warning">Connexion <i class="bi bi-box-arrow-in-right"></i><i class="fa-solid fa-user"></i></button>
+        <?php }else{  ?>
+            <a href="<?= $this->Url->build('/users/logout') ?>" class="btn btn-warning"><i class="bi bi-door-open"></i></a>
+        <?php }  ?>
     </div>
+
+
 </nav>
+<?php if ($user){  ?>
+<nav class="navbar p-1 d-flex  justify-content-between navbar-dark bg-dark position-relative">
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button class="btn btn-outline-light"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Mes évènements</span> <i class="bi bi-calendar-date"></i></button>
+    <button class="btn btn-outline-light"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Mon organisation</span> <i class="bi bi-building"></i></button>
+    </div>
+    <span class="text-white pe-1"><?= h($user->name) ?> | <span class="<?= $user->organisation->is_legal ? 'text-light' : 'text-danger'  ?> "><?= h($user->organisation->nom) ?></span> </span>
+</nav>
+<?php }  ?>
 <main class="main">
     <div>
         <?= $this->Flash->render() ?>
@@ -37,7 +52,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-white bg-dark rounded-0 shadow">
-                    <h2 class="text-uppercase text-center">Connexion</h2>
+                    <?=  $this->element('../Users/login') ?>
                 </div>
             </div>
         </div>

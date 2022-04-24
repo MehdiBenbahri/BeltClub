@@ -41,7 +41,7 @@ class User extends Entity
         'email' => true,
         'tel_ingame' => true,
         'discord_id' => true,
-        'password' => true,
+        'password' => false,
         'validated_account' => true,
         'created' => true,
         'modified' => true,

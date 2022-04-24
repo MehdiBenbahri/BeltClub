@@ -32,6 +32,14 @@ use App\Controller\EventsController;
  */
 class PagesController extends AppController
 {
+
+    public function home()
+    {
+
+        $events = (new EventsController())->getEvents()->all();
+        $this->set(compact('events'));
+    }
+
     /**
      * Displays a view
      *

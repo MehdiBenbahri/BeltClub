@@ -23,9 +23,8 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('tel_ingame');
                     echo $this->Form->control('password');
-                    echo $this->Form->control('validated_account');
                 ?>
-                <input type="text" >
+                <input type="text" name="discord_id" required>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

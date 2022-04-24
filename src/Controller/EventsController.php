@@ -70,6 +70,14 @@ class EventsController extends AppController
         return $event;
     }
 
+    public function getEventsTypes()
+    {
+        $eventsType = $this->EventsTypes->find('all');
+
+        return $eventsType;
+    }
+
+
     /**
      * Add method
      *

@@ -48,6 +48,16 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Authentication.Authentication', ["requireIdentity" => false]);
+        $table =  $this->fetchTable("Users");
+        $user = $this->Authentication->getIdentity();
+        if ($user){
+            $user = $table
+                ->find("all",["id" => $user->getIdentifier()])
+                ->contain(["Organisations"])
+                ->first();
+        }
+        $this->set(compact('user'));
         //$this->loadComponent('Authentication.Authentication');
         /*
          * Enable the following component for recommended CakePHP form protection settings.

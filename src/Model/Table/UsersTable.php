@@ -44,6 +44,10 @@ class UsersTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Organisations')
+            ->setForeignKey('id_organisation')
+            ->setProperty('organisation');
+
         $this->addBehavior('Timestamp');
 
     }
