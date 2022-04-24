@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\Event;
+
 /**
  * Events Controller
  *
@@ -30,7 +32,7 @@ class EventsController extends AppController
      * View method
      *
      * @param string|null $id Event id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return  \App\Model\Entity\Event list of events
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
@@ -45,6 +47,27 @@ class EventsController extends AppController
                 ->where(["EventsTypes.is_legal" => 1])->first();;
         }
         $this->set(compact('event'));
+    }
+
+    /**
+     * View method
+     *
+     * @param string|null $id Event id.
+     * @return  \App\Model\Entity\Event list of events
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function getEvents($id = null)
+    {
+        if ($id){
+            $event = $this->Events->findById($id)
+                ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights']);
+        }
+        else{
+            $event = $this->Events->find('all')
+                ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
+                ->where(["Events.end_date <=" => date('Y-m-d')])->order(['Events.start_date'],'DESC')->limit(15);
+        }
+        return $event;
     }
 
     /**

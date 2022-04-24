@@ -21,6 +21,7 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use App\Controller\EventsController;
 
 /**
  * Static content controller
@@ -59,7 +60,8 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $this->set(compact('page', 'subpage'));
+        $events = (new EventsController())->getEvents()->all();
+        $this->set(compact('page', 'subpage', 'events'));
 
         try {
             return $this->render(implode('/', $path));

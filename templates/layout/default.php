@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
-    <?= $this->Html->css(['bootstrap/dist/css/bootstrap.css', 'bootstrap/dist/css/bootstrap-utilities.css', 'home', 'main']) ?>
+    <?= $this->Html->css(['splide/splide.min','bootstrap/dist/css/bootstrap.css', 'bootstrap/dist/css/bootstrap-utilities.css', 'home', 'main']) ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -29,7 +29,7 @@
     </div>
 </nav>
 <main class="main">
-    <div class="container">
+    <div>
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
@@ -45,6 +45,6 @@
 </main>
 <footer>
 </footer>
-<?= $this->Html->script(['bootstrap/js/bootstrap.min']) ?>
+<?= $this->Html->script(['bootstrap/js/bootstrap.min','splide/js/splide.min']) ?>
 </body>
 </html>

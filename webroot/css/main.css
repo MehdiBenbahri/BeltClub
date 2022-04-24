@@ -8,3 +8,9 @@ html, body {
     left: 50%;
     transform: translate(-50%, 0);
 }
+.text-ellipsis{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

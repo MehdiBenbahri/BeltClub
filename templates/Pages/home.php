@@ -24,14 +24,13 @@
 
 </header>
 <main class="main">
-    <div class="container">
         <div class="content">
-            <div class="row">
-                <?php \Cake\Error\Debugger::dump($this); ?>
+            <div class="my-1">
                 <?=  $this->element('../Events/view') ?>
             </div>
         </div>
-    </div>
 </main>
+<?= $this->Html->script(['bootstrap/js/bootstrap.min']) ?>
+<script type="module" src="<?= $this->Url->build('/js/home/home.js',["fullPath" => "true"]) ?>"></script>
 </body>
 </html>
