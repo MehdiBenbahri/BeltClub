@@ -65,7 +65,7 @@ class EventsController extends AppController
         else{
             $event = $this->Events->find('all')
                 ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
-                ->where(["Events.end_date <=" => date('Y-m-d')])->order(['Events.start_date'],'DESC')->limit(15);
+                ->where(["Events.end_date <=" => date('Y-m-d'), 'Events.is_private' => 0])->order(['Events.start_date'],'DESC')->limit(15);
         }
         return $event;
     }
