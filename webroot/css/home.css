@@ -25,7 +25,7 @@
     transition-duration: 200ms;
     display: flex !important;
     backdrop-filter: blur(5px);
-    text-shadow: #000000 1px 0 5px;
+    text-shadow: transparent 1px 0 5px;
     justify-content: center;
     height: 100%;
     align-items: center;
@@ -33,4 +33,15 @@
 .big-events:hover > .event-presentation {
     transition-duration: 200ms;
     display: none !important;
+}
+
+.leaflet-control-attribution{
+    display: none;
+}
+.leaflet-bar{
+    border: none !important;
+}
+
+.pan{
+    fill: red;
 }
