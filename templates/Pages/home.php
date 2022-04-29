@@ -24,13 +24,51 @@
 
 </header>
 <main class="main">
-        <div class="content">
-            <div class="my-1">
-                <?=  $this->element('../Events/view') ?>
+    <div class="content">
+        <div class="my-1">
+            <div class="row p-0 my-5 w-100">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <?php
+
+                    if (!empty($events)) {
+                        $max = 3;
+                        foreach ($events as $event) {
+                            if ($max > 0) {
+                                $max--;
+                                ?>
+                                <div style="height: 10rem; background-image: url(<?= $event->event_description->img_path ?>); background-size: cover; object-fit: contain; background-position: center;
+                    background-repeat: no-repeat;" class="border big-events my-1 rounded border-dark d-flex align-items-end flex-wrap">
+                                    <div class="hover-presentation d-none w-100 text-center text-white">
+                                        <div>
+                                            <h1><i class="bi bi-info-circle"></i></a></h1>
+                                            cliquez pour plus d'info
+                                        </div>
+                                    </div>
+                                    <div class="bg-dark event-presentation p-1 bg-opacity-75 text-white" >
+                                        <h4 class="w-100 z-index-100 text-white">
+                                            <?= $event->event_description->title  ?>
+                                        </h4>
+                                        <div class="" style="max-height: 1.75rem;display: -webkit-box;overflow: hidden; -webkit-line-clamp: 1;-webkit-box-orient: vertical;">
+                                            <?= $event->event_description->description  ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </div>
             </div>
+            <?= $this->element('../Events/view') ?>
         </div>
+    </div>
 </main>
 <?= $this->Html->script(['bootstrap/js/bootstrap.min']) ?>
-<script type="module" src="<?= $this->Url->build('/js/home/home.js',["fullPath" => "true"]) ?>"></script>
+<script type="module" src="<?= $this->Url->build('/js/home/home.js', ["fullPath" => "true"]) ?>"></script>
 </body>
 </html>

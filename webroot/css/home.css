@@ -10,3 +10,27 @@
     font-weight: normal;
     font-style: normal;
 }
+
+.big-events{
+    transition-duration: 200ms;
+}
+
+.big-events:hover{
+    transition-duration: 200ms;
+    margin: -15px;
+    cursor: pointer;
+}
+
+.big-events:hover > .hover-presentation{
+    transition-duration: 200ms;
+    display: flex !important;
+    backdrop-filter: blur(5px);
+    text-shadow: #000000 1px 0 5px;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+.big-events:hover > .event-presentation {
+    transition-duration: 200ms;
+    display: none !important;
+}

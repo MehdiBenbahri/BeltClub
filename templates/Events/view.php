@@ -5,7 +5,7 @@
  */
 ?>
 
-<section class="splide" aria-label="Splide Basic HTML Example">
+<section class="splide">
     <div class="splide__arrows">
         <button class="splide__arrow d-none p-1 splide__arrow--prev shadow rounded-circle btn btn-secondary ">
             <i class="bi bi-caret-left-fill"></i>
@@ -25,8 +25,9 @@
                             <h5 class="card-title"><?= $event->event_description->title ?></h5>
                             <p class="card-text text-muted text-ellipsis"><?= $event->event_description->description ?></p>
                             <div class="d-flex align-items-center justify-content-between">
-                                <a href="#" class="btn btn-sm btn-outline-light">Plus d'info <i
-                                        class="bi bi-info-circle"></i></a>
+                                <a href="#" class="btn btn-sm btn-outline-light">
+                                    Plus d'info
+                                    <i class="bi bi-info-circle"></i></a>
                                 <span class="badge rounded-pill shadow bg-<?= $event->event_type->css_class ?>"><?= $event->event_type->name ?></span>
                             </div>
                         </div>
