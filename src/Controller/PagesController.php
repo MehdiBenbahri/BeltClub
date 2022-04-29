@@ -35,8 +35,15 @@ class PagesController extends AppController
 
     public function home()
     {
-
-        $events = (new EventsController())->getEvents()->all();
+        $table =  $this->fetchTable("Users");
+        $user = $this->Authentication->getIdentity();
+        if ($user){
+            $user = $table
+                ->find("all",["id" => $user->getIdentifier()])
+                ->contain(["Organisations"])
+                ->first();
+        }
+        $events = (new EventsController())->getEvents()->where(["EventsTypes.is_legal" => $user != null ? $user->organisation->is_legal : 1])->all();
         $this->set(compact('events'));
     }
 

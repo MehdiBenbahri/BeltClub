@@ -17,7 +17,7 @@
 
 .big-events:hover{
     transition-duration: 200ms;
-    margin: -15px;
+    margin: -5px;
     cursor: pointer;
 }
 
