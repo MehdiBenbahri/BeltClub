@@ -42,6 +42,10 @@ class AppController extends Controller
         return true;//or false
     }
 
+    public static $CURRENT_USER = null;
+    public static $IS_CURRENT_USER_LEGAL = null;
+    public static $IS_CURRENT_USER_ADMIN = null;
+
     public function initialize(): void
     {
         parent::initialize();
@@ -56,6 +60,12 @@ class AppController extends Controller
                 ->find("all",["id" => $user->getIdentifier()])
                 ->contain(["Organisations"])
                 ->first();
+        }
+
+        if ($user){
+            AppController::$CURRENT_USER = $user;
+            AppController::$IS_CURRENT_USER_LEGAL = $user->organisation->is_legal;
+            AppController::$IS_CURRENT_USER_ADMIN = $user->organisation->slug == "admin" && $user->organisation->id == 1;
         }
         $this->set(compact('user'));
         //$this->loadComponent('Authentication.Authentication');

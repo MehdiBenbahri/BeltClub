@@ -22,6 +22,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use App\Controller\EventsController;
+use App\Controller\AppController;
 
 /**
  * Static content controller
@@ -36,13 +37,7 @@ class PagesController extends AppController
     public function home()
     {
         $table =  $this->fetchTable("Users");
-        $user = $this->Authentication->getIdentity();
-        if ($user){
-            $user = $table
-                ->find("all",["id" => $user->getIdentifier()])
-                ->contain(["Organisations"])
-                ->first();
-        }
+        $user = AppController::$CURRENT_USER;
         $events = (new EventsController())->getEvents()->where(["EventsTypes.is_legal" => $user != null ? $user->organisation->is_legal : 1])->all();
         $this->set(compact('events'));
     }

@@ -37,16 +37,14 @@ class EventsController extends AppController
      */
     public function view($id = null)
     {
-        if ($id){
-            $event = $this->Events->findById($id)
-                ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights']);
+        $event = $this->getEvents($id)->all();
+        if ($event->count() == 1){
+            $this->set(compact('event'));
         }
         else{
-            $event = $this->Events->find('all')
-                ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
-                ->where(["EventsTypes.is_legal" => 1])->first();;
+            $events = $event;
+            $this->set(compact('events'));
         }
-        $this->set(compact('event'));
     }
 
     /**
@@ -59,13 +57,28 @@ class EventsController extends AppController
     public function getEvents($id = null)
     {
         if ($id){
-            $event = $this->Events->findById($id)
-                ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights']);
+            if (!AppController::$CURRENT_USER){
+                $event = $this->Events->findById($id)
+                    ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
+                    ->where(['Events.is_private' => 0]);
+            }
+            else{
+                $event = $this->Events->findById($id)
+                    ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights']);
+                if (!$event->first()){
+                    return $event;
+                }
+                if ($event->first()->is_private){
+                    $event->where(['Events.id_organisation' => AppController::$CURRENT_USER->organisation->id]);
+                }
+            }
         }
         else{
             $event = $this->Events->find('all')
                 ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
-                ->where(["Events.end_date <=" => date('Y-m-d'), 'Events.is_private' => 0])->order(['Events.start_date','EventsTypes.is_legal'],'DESC')->limit(15);
+                ->where(["Events.end_date <=" => date('Y-m-d'), 'Events.is_private' => 0])
+                ->order(['Events.start_date','EventsTypes.is_legal'],'DESC')
+                ->limit(15);
         }
         return $event;
     }
