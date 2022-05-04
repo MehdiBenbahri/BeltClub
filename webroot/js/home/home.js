@@ -20,6 +20,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             },
         },
     } ).mount();
+
 });
 
 

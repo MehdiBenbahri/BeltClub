@@ -1,0 +1,33 @@
+.fc-daygrid-day-number{
+    color : var(--bs-yellow);
+    text-decoration: none;
+}
+.fc-col-header-cell-cushion {
+    transition-duration: 0.5s;
+    color : var(--bs-yellow);
+    text-decoration: none;
+}
+.fc-toolbar-title{
+    transition-duration: 0.5s;
+    color : var(--bs-yellow);
+    text-decoration: none;
+}
+.fc-col-header-cell-cushion:hover {
+    transition-duration: 0.5s;
+    color : var(--bs-orange);
+}
+.fc-timegrid-slot{
+    color : var(--bs-yellow);
+    text-decoration: none;
+}
+.fc-scroller::-webkit-scrollbar {
+    background-color: var(--bs-secondary);
+}
+.fc-scroller::-webkit-scrollbar-thumb {
+    background: var(--bs-gray-700);
+    border: 3px solid var(--bs-gray-700);
+    border-radius: 20rem;
+}
+.gridjs-table{
+    border-radius: 1rem !important;
+}

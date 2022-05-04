@@ -4,45 +4,37 @@
  * @var \App\Model\Entity\Organisation $organisation
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Organisation'), ['action' => 'edit', $organisation->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Organisation'), ['action' => 'delete', $organisation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $organisation->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Organisations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Organisation'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="organisations view content">
-            <h3><?= h($organisation->id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Nom') ?></th>
-                    <td><?= h($organisation->nom) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Slug') ?></th>
-                    <td><?= h($organisation->slug) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Img Orga') ?></th>
-                    <td><?= h($organisation->img_orga) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($organisation->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($organisation->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($organisation->modified) ?></td>
-                </tr>
-            </table>
+
+<div class="column-responsive column-80">
+    <div class="organisations view content">
+        <div class="border-secondary rounded border m-5">
+            <div class=" d-flex justify-content-between align-items-center">
+                <h4 class="text-secondary ms-3"><?= $organisation->nom ?> <?= $organisation->is_legal ? '' : '<div class="text-danger text-uppercase"> Organisation illégal <i class="bi bi-radioactive"></i></div>' ?></h4>
+                <img style="border-radius: 20rem;" class="m-3" width="100rem" height="auto" src="<?= $organisation->img_orga ?>"
+                     alt="logo de l'organisation <?= $organisation->nom ?>">
+            </div>
+            <div class="m-2 p-2 rounded" id="events-table"></div>
+            <div class="m-3 p-3 bg-dark rounded calendar-scroller" id='calendar'>
+            </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            allDaySlot: false,
+            initialView: 'timeGridWeek',
+            themeSystem: 'standard',
+            locale: 'fr'
+        });
+        calendar.render();
+        $(".fc-col-header-cell-cushion").each(function(){
+            var date = moment($(this).parent(".fc-scrollgrid-sync-inner").parent("th.fc-col-header-cell"));
+           $(this).html();
+           console.log(date.format("DD/MM/YYYY"));
+        });
+    });
+</script>

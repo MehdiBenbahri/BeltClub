@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\Event;
+use Cake\I18n\FrozenTime;
 
 /**
  * Events Controller
@@ -76,10 +77,12 @@ class EventsController extends AppController
         else{
             $event = $this->Events->find('all')
                 ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
-                ->where(["Events.end_date <=" => date('Y-m-d'), 'Events.is_private' => 0])
+                ->where(['Events.is_private' => 0,'DATE(Events.end_date) >=' => date("Y-m-d H:i:m", time())])
                 ->order(['Events.start_date','EventsTypes.is_legal'],'DESC')
                 ->limit(15);
         }
+
+
         return $event;
     }
 

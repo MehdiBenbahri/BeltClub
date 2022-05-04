@@ -48,7 +48,7 @@
                                             cliquez pour plus d'info
                                         </div>
                                     </div>
-                                    <div class="bg-dark  event-presentation p-1 bg-opacity-75 text-white">
+                                    <div class="bg-dark  event-presentation p-1 blur-background bg-opacity-75 text-white">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <h4 class="w-100 z-index-100 text-white">
                                                 <span class="fw-bolder"><?= $event->event_description->title ?></span>

@@ -67,6 +67,7 @@ class AppController extends Controller
             AppController::$IS_CURRENT_USER_LEGAL = $user->organisation->is_legal;
             AppController::$IS_CURRENT_USER_ADMIN = $user->organisation->slug == "admin" && $user->organisation->id == 1;
         }
+        date_default_timezone_set('Europe/Paris');
         $this->set(compact('user'));
         //$this->loadComponent('Authentication.Authentication');
         /*

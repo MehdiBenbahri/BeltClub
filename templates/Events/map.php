@@ -8,7 +8,7 @@
             center: [40.727, -74.181],
             zoom: 14.5
         });
-        var imageUrl = '<?= $this->Url->Build("/img/gta5map.svg") ?>',
+        var imageUrl = '<?= $this->Url->Build("/img/gta5mapPlusPericoV2.svg") ?>',
             imageBounds = [
                 [40.712216, -74.22655],
                 [40.773941, -74.12544]
