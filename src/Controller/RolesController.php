@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Role;
+
 /**
  * Roles Controller
  *
@@ -92,14 +94,41 @@ class RolesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $role = $this->Roles->get($id);
-        if ($this->Roles->delete($role)) {
-            $this->Flash->success(__('The role has been deleted.'));
-        } else {
-            $this->Flash->error(__('The role could not be deleted. Please, try again.'));
+        $id_orga =  $this->fetchTable("Users")->find('all')->where(["id_role" => $id])->contain(["Organisations"])->first()->organisation->id;
+        if (AppController::$CURRENT_USER->organisation->id == $id_orga){
+            $role = $this->Roles->get($id);
+            $role->active = 0;
+            $this->Roles->save($role);
+            return $this->redirect($this->referer());
+        }
+        else{
+            $this->Flash->error("Impossible de supprimer l'évènement (CHECK ORGA & ROLE = FALSE)");
+            return $this->redirect($this->referer());
         }
 
-        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Role id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function reabilite($id = null)
+    {
+        $id_orga =  $this->fetchTable("Users")->find('all')->where(["id_role" => $id])->contain(["Organisations"])->first()->organisation->id;
+        if (AppController::$CURRENT_USER->organisation->id == $id_orga){
+
+            $role = $this->Roles->get($id);
+            $role->active = 1;
+            $this->Roles->save($role);
+            return $this->redirect($this->referer());
+        }
+        else{
+            $this->Flash->error("Impossible de réabilité l'évènement l'évènement (CHECK ORGA & ROLE = FALSE)");
+            return $this->redirect($this->referer());
+        }
+
     }
 }

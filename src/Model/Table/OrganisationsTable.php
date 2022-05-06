@@ -47,6 +47,10 @@ class OrganisationsTable extends Table
             ->setForeignKey('id_organisation')
             ->setProperty('users');
 
+        $this->hasMany('Roles')
+            ->setForeignKey('id_organisation')
+            ->setProperty('id');
+
         $this->hasMany('Events')
             ->setForeignKey('id_organisation')
             ->setProperty('id');

@@ -43,6 +43,15 @@ class RolesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->hasOne('Users')
+            ->setForeignKey('id_role')
+            ->setProperty('role');
+
+        $this->hasOne('Organisations')
+            ->setForeignKey('id_role')
+            ->setProperty('role');
+
+
         $this->addBehavior('Timestamp');
     }
 

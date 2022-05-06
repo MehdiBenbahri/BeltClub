@@ -37,12 +37,17 @@ class OrganisationsController extends AppController
             return $this->redirect("/");
         }
         else if (AppController::$CURRENT_USER->organisation->id == $id) {
+            $table = $this->fetchTable("Users");
             $organisation = $this->Organisations->get($id, [
                 'contain' => ["Users" => function($q){
                     return $q->contain(["Roles","Organisations"])->order(["Users.created ASC","Roles.level DESC"]);
                 }],
             ]);
-            $this->set(compact('organisation'));
+            $roles = $table->find("all")
+                ->contain(["Organisations","Roles"])
+                ->where(["Organisations.id" => $id])
+                ->group("Roles.id");
+            $this->set(compact('organisation','roles'));
         }else {
             $this->Flash->error("Vous ne faite pas partie de l'organisation en question...");
             return $this->redirect("/");
