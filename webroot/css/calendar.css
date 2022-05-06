@@ -2,7 +2,7 @@
     color : var(--bs-yellow);
     text-decoration: none;
 }
-.fc-col-header-cell-cushion {
+.fc-col-header-cell-cushion,.fc-list-day-text,.fc-list-day-side-text {
     transition-duration: 0.5s;
     color : var(--bs-yellow);
     text-decoration: none;
@@ -20,14 +20,44 @@
     color : var(--bs-yellow);
     text-decoration: none;
 }
+.fc-list-day-side-text:hover{
+    color : var(--bs-orange);
+    text-decoration: none;
+}
+.fc-list-day-text:hover{
+    color : var(--bs-orange);
+    text-decoration: none;
+}
 .fc-scroller::-webkit-scrollbar {
     background-color: var(--bs-secondary);
+    width: 10px;
 }
 .fc-scroller::-webkit-scrollbar-thumb {
     background: var(--bs-gray-700);
     border: 3px solid var(--bs-gray-700);
+
     border-radius: 20rem;
 }
 .gridjs-table{
     border-radius: 1rem !important;
+}
+.fc-list-event-time,.fc-list-event-title{
+    color : #868686 !important;
+}
+.fc-list-event-time:hover,.fc-list-event-title:hover{
+   color: var(--bs-gray-700);
+}
+.fc-list-event-dot{
+    border-color: var(--bs-yellow) !important;
+}
+.fc-cell-shaded{
+    background-color: #2c3e50 !important;
+}
+.fc-list-event-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.fc-toolbar-title{
+    text-align: center;
 }

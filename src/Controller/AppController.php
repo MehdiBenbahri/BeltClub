@@ -54,11 +54,16 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication', ["requireIdentity" => false]);
         $table =  $this->fetchTable("Users");
-        $user = $this->Authentication->getIdentity();
+        if ($this->Authentication->getIdentity()){
+            $user = $this->Authentication->getIdentity()->getOriginalData();
+        }
+        else{
+            $user = null;
+        }
         if ($user){
             $user = $table
-                ->find("all",["id" => $user->getIdentifier()])
-                ->contain(["Organisations"])
+                ->findById($user->id)
+                ->contain(["Organisations","Roles"])
                 ->first();
         }
 

@@ -1,0 +1,10 @@
+.dataTables_info{
+    color : var(--bs-gray-100) !important;
+}
+.dataTables_length{
+    color : var(--bs-gray-100) !important;
+}
+.form-select{
+    color : var(--bs-gray) !important;
+    text-align: center;
+}

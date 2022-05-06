@@ -27,6 +27,7 @@ class EventsRight extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'id_event' => true,
         'id_user' => true,
         'id_role' => true,

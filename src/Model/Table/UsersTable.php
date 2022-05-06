@@ -48,6 +48,10 @@ class UsersTable extends Table
             ->setForeignKey('id_organisation')
             ->setProperty('organisation');
 
+        $this->belongsTo('Roles')
+            ->setForeignKey('id_role')
+            ->setProperty('role');
+
         $this->addBehavior('Timestamp');
 
     }

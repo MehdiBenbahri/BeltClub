@@ -27,6 +27,7 @@ class Role extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'name' => true,
         'created' => true,
         'is_orga' => true,

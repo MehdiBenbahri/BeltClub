@@ -29,6 +29,7 @@ class EventsDescription extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'id_event' => true,
         'title' => true,
         'description' => true,

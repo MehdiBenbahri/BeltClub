@@ -29,6 +29,7 @@ class Contributor extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'id_users' => true,
         'id_events' => true,
         'somme_reverse' => true,

@@ -27,6 +27,7 @@ class EventsType extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'slug' => true,
         'name' => true,
         'is_legal' => true,

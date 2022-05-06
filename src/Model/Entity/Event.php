@@ -30,6 +30,7 @@ class Event extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'id_organisation' => true,
         'id_event_type' => true,
         'id_event_description' => true,

@@ -13,8 +13,6 @@
         Belt Club -
         <?= $this->fetch('title') ?>
     </title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
-
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -75,5 +73,6 @@
 </main>
 <?= $this->Html->script(['bootstrap/js/bootstrap.min']) ?>
 <script type="module" src="<?= $this->Url->build('/js/home/home.js', ["fullPath" => "true"]) ?>"></script>
+
 </body>
 </html>

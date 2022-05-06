@@ -32,11 +32,21 @@ class OrganisationsController extends AppController
      */
     public function view($id = null)
     {
-        $organisation = $this->Organisations->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set(compact('organisation'));
+        if (!AppController::$CURRENT_USER){
+            $this->Flash->error("Vous devez être connecté pour accéder à ceci.");
+            return $this->redirect("/");
+        }
+        else if (AppController::$CURRENT_USER->organisation->id == $id) {
+            $organisation = $this->Organisations->get($id, [
+                'contain' => ["Users" => function($q){
+                    return $q->contain(["Roles","Organisations"])->order(["Users.created ASC","Roles.level DESC"]);
+                }],
+            ]);
+            $this->set(compact('organisation'));
+        }else {
+            $this->Flash->error("Vous ne faite pas partie de l'organisation en question...");
+            return $this->redirect("/");
+        }
     }
 
     /**

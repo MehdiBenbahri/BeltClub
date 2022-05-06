@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
+use phpDocumentor\Reflection\Types\Boolean;
+
 /**
  * Users Controller
  *
@@ -84,7 +87,6 @@ class UsersController extends AppController
             $user = $this->Users->newEmptyEntity();
             if ($this->request->is('post')) {
                 $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => false]);
-                //dd( $user);
                 if ($this->Users->save($user)) {
 
                     $this->Flash->success(__('The user has been saved.'));
@@ -133,6 +135,26 @@ class UsersController extends AppController
             return $this->redirect("/");
         }
     }
+    /**
+     * Return true if the current user is allowed to edit or delete the targeted user
+     *
+     * @param User $user targeted user entity (must contain orga and role).
+     * @return Boolean true if the current user is allowed false otherwise
+     */
+    public static function isAllowedToEditOrDelete($target_user){
+        //check level
+        if ($target_user->role->level > AppController::$CURRENT_USER->role->level){
+            return false;
+        }
+        if ($target_user->organisation->id != AppController::$CURRENT_USER->organisation->id){
+            return false;
+        }
+
+        if ($target_user->id == AppController::$CURRENT_USER->id){
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Delete method
@@ -143,20 +165,54 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        if ($this->Authentication->getIdentity()){
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('L\'utilisateur n\'a pas pu être supprimer. Contactez l\'administrateur.'));
+        $user_to_delete = $this->Users->findById($id)->contain(["Organisations","Roles"])->first();
+        if (!$user_to_delete){
+            $this->Flash->error(__('Utilisateur non valide'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
+        if (AppController::$CURRENT_USER){
+            if ($this->isAllowedToEditOrDelete($user_to_delete)){
+                $user_to_delete->active = 0;
+                $this->Users->save($user_to_delete);
+            } else {
+                $this->Flash->error(__('Vous n\'avez pas le niveau de droit nécessaire et suffisant pour effectuer cette action.'));
+                return $this->redirect($this->referer());
+            }
+            return $this->redirect($this->referer());
         }
         else{
             $this->Flash->error(__('Vous devez être connecté pour accéder à cette page'));
-            return $this->redirect("/");
+            return $this->redirect($this->referer());
+        }
+    }
+
+    /**
+     * un delete user method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function reabilite($id = null)
+    {
+        $user_to_delete = $this->Users->findById($id)->contain(["Organisations","Roles"])->first();
+        if (!$user_to_delete){
+            $this->Flash->error(__('Utilisateur non valide'));
+            return $this->redirect(['action' => 'index']);
+        }
+        if (AppController::$CURRENT_USER){
+            if ($this->isAllowedToEditOrDelete($user_to_delete)){
+                $user_to_delete->active = 1;
+                $this->Users->save($user_to_delete);
+            } else {
+                $this->Flash->error(__('Vous n\'avez pas le niveau de droit nécessaire et suffisant pour effectuer cette action.'));
+                return $this->redirect($this->referer());
+            }
+            return $this->redirect($this->referer());
+        }
+        else{
+            $this->Flash->error(__('Vous devez être connecté pour accéder à cette page'));
+            return $this->redirect($this->referer());
         }
     }
 }

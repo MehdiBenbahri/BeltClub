@@ -16,7 +16,7 @@
     <?= $this->Html->css(['splide/splide.min','bootstrap/dist/css/bootstrap.css', 'bootstrap/dist/css/bootstrap-utilities.css', 'home', 'main','calendar']) ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+
 </head>
 <body>
 
@@ -67,8 +67,9 @@
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.3/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/locale/fr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
+
 <?= $this->Html->script(['bootstrap/js/bootstrap.min','splide/js/splide.min']) ?>
+<?= $this->fetch('script') ?>
+
 </body>
 </html>

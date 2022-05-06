@@ -31,6 +31,7 @@ class EventsLot extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        '*',
         'id_events' => true,
         'name' => true,
         'somme' => true,

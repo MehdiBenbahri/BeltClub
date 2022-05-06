@@ -29,6 +29,7 @@ class Organisation extends Entity
 
 
     protected $_accessible = [
+        '*',
         'nom' => true,
         'slug' => true,
         'img_orga' => true,

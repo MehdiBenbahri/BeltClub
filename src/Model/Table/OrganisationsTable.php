@@ -43,7 +43,9 @@ class OrganisationsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-
+        $this->hasMany('Users')
+            ->setForeignKey('id_organisation')
+            ->setProperty('users');
 
         $this->hasMany('Events')
             ->setForeignKey('id_organisation')
