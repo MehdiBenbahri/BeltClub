@@ -51,7 +51,6 @@ class RolesTable extends Table
             ->setForeignKey('id_role')
             ->setProperty('role');
 
-
         $this->addBehavior('Timestamp');
     }
 
@@ -64,6 +63,11 @@ class RolesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('id_organisation')
+            ->requirePresence('id_organisation', 'create')
+            ->notEmptyString('id_organisation');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 45)
             ->requirePresence('name', 'create')
@@ -75,6 +79,13 @@ class RolesTable extends Table
 
         $validator
             ->notEmptyString('active');
+
+        $validator
+            ->integer('level')
+            ->notEmptyString('level');
+
+        $validator
+            ->notEmptyString('is_admin');
 
         return $validator;
     }

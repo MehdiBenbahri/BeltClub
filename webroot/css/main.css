@@ -29,6 +29,24 @@ html, body {
     backdrop-filter: blur(5px);
 }
 
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
 @keyframes placeHolderShimmer{
     0%{
         background-position: -468px 0

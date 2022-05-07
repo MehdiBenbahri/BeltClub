@@ -9,11 +9,16 @@ use Cake\ORM\Entity;
  * Role Entity
  *
  * @property int $id
+ * @property int $id_organisation
  * @property string $name
- * @property string $created
+ * @property \Cake\I18n\FrozenTime|null $created
  * @property int $is_orga
- * @property string|null $modified
+ * @property \Cake\I18n\FrozenTime|null $modified
  * @property int $active
+ * @property int $level
+ * @property int $is_admin
+ *
+ * @property \App\Model\Entity\Organisation $role
  */
 class Role extends Entity
 {
@@ -27,11 +32,14 @@ class Role extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        '*',
+        'id_organisation' => true,
         'name' => true,
         'created' => true,
         'is_orga' => true,
         'modified' => true,
         'active' => true,
+        'level' => true,
+        'is_admin' => true,
+        'role' => true,
     ];
 }

@@ -48,17 +48,23 @@ class RolesController extends AppController
      */
     public function add()
     {
-        $role = $this->Roles->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $role = $this->Roles->patchEntity($role, $this->request->getData());
-            if ($this->Roles->save($role)) {
-                $this->Flash->success(__('The role has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        if (AppController::$CURRENT_USER->role->is_admin) {
+            $role = $this->Roles->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $role = $this->Roles->patchEntity($role, $this->request->getData());
+                $role->active = 1;
+                $role->is_orga = 1;
+                $role->id_organisation = AppController::$CURRENT_USER->organisation->id;
+                if ($this->Roles->save($role)) {
+                    return $this->redirect($this->referer());
+                }
+                $this->Flash->error(__('Le rôle n\'a pas pu être enregistré. Veuillez réessayer.'));
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error("Impossible de supprimer l'évènement (CHECK ORGA & ROLE = FALSE)");
+                return $this->redirect($this->referer());
             }
-            $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
-        $this->set(compact('role'));
     }
 
     /**
@@ -73,16 +79,16 @@ class RolesController extends AppController
         $role = $this->Roles->get($id, [
             'contain' => [],
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $role = $this->Roles->patchEntity($role, $this->request->getData());
-            if ($this->Roles->save($role)) {
-                $this->Flash->success(__('The role has been saved.'));
+        if (AppController::$CURRENT_USER->organisation->id == $role->id_organisation && AppController::$CURRENT_USER->role->is_admin) {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $role = $this->Roles->patchEntity($role, $this->request->getData());
+                if ($this->Roles->save($role)) {
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect($this->referer());
+                }
             }
-            $this->Flash->error(__('The role could not be saved. Please, try again.'));
+            $this->set(compact('role'));
         }
-        $this->set(compact('role'));
     }
 
     /**
@@ -94,14 +100,16 @@ class RolesController extends AppController
      */
     public function delete($id = null)
     {
-        $id_orga =  $this->fetchTable("Users")->find('all')->where(["id_role" => $id])->contain(["Organisations"])->first()->organisation->id;
-        if (AppController::$CURRENT_USER->organisation->id == $id_orga){
+
+        $role = $this->Roles->get($id);
+        $id_orga = $role->id_organisation;
+
+        if (AppController::$CURRENT_USER->organisation->id == $id_orga && AppController::$CURRENT_USER->role->is_admin) {
             $role = $this->Roles->get($id);
             $role->active = 0;
             $this->Roles->save($role);
             return $this->redirect($this->referer());
-        }
-        else{
+        } else {
             $this->Flash->error("Impossible de supprimer l'évènement (CHECK ORGA & ROLE = FALSE)");
             return $this->redirect($this->referer());
         }
@@ -117,15 +125,13 @@ class RolesController extends AppController
      */
     public function reabilite($id = null)
     {
-        $id_orga =  $this->fetchTable("Users")->find('all')->where(["id_role" => $id])->contain(["Organisations"])->first()->organisation->id;
-        if (AppController::$CURRENT_USER->organisation->id == $id_orga){
-
-            $role = $this->Roles->get($id);
+        $role = $this->Roles->get($id);
+        $id_orga = $role->id_organisation;
+        if (AppController::$CURRENT_USER->organisation->id == $id_orga && AppController::$CURRENT_USER->role->is_admin) {
             $role->active = 1;
             $this->Roles->save($role);
             return $this->redirect($this->referer());
-        }
-        else{
+        } else {
             $this->Flash->error("Impossible de réabilité l'évènement l'évènement (CHECK ORGA & ROLE = FALSE)");
             return $this->redirect($this->referer());
         }

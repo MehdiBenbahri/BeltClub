@@ -20,11 +20,14 @@ class RolesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'id_organisation' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
-                'created' => 'Lorem ipsum dolor sit amet',
+                'created' => '2022-05-07 17:24:55',
                 'is_orga' => 1,
-                'modified' => 'Lorem ipsum dolor sit amet',
+                'modified' => '2022-05-07 17:24:55',
                 'active' => 1,
+                'level' => 1,
+                'is_admin' => 1,
             ],
         ];
         parent::init();

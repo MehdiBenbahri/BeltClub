@@ -6,23 +6,27 @@
 ?>
 <div class="row">
     <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Roles'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="roles form content">
-            <?= $this->Form->create($role) ?>
+            <?= $this->Form->create(new \App\Model\Entity\Role(), ['url' => '/roles/add']) ?>
             <fieldset>
-                <legend><?= __('Add Role') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('is_orga');
-                    echo $this->Form->control('active');
+                ?>
+                <label for="textInputFormRole">Nom</label>
+                <input class="form-control-color w-100 bg-secondary form-control" type="text" name="name" min="0"
+                       max="45" required placeholder="Un Nom De Role">
+                <label for="numInputFormRole">Niveau</label>
+                <input id="numInputForm" class="form-control-color w-100 bg-secondary form-control" type="number"
+                       name="level" min="0" required max="99999" value="0" placeholder="10">
+                <?php
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-success btn-sm">Sauvegarder <i class="bi bi-check-lg"></i></button>
+            </div>
             <?= $this->Form->end() ?>
         </div>
     </div>
