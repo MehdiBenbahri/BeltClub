@@ -87,21 +87,21 @@ class UsersController extends AppController
             $user = $this->Users->newEmptyEntity();
             if ($this->request->is('post')) {
                 $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => false]);
+                $user->id_organisation = AppController::$CURRENT_USER->id_organisation;
+                if ($this->Users->find()->where(["email" => $user->email])->count() > 0){
+                    $this->Flash->error(__('L\'email du membre existe déjà.'));
+                    return $this->redirect($this->referer());
+                }
                 if ($this->Users->save($user)) {
-
-                    $this->Flash->success(__('The user has been saved.'));
-
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect($this->referer());
                 }
                 $this->Flash->error(__('L\'utilisateur n\'a pas pu être enregistrer. Contactez l\'administrateur.'));
             }
-            //$discords = $this->Users->Discords->find('list', ['limit' => 200])->all();
-
             $this->set(compact('user'));
         }
         else{
             $this->Flash->error(__('Vous devez être connecté pour accéder à cette page'));
-            return $this->redirect("/");
+            return $this->redirect($this->referer());
         }
     }
 
@@ -114,25 +114,37 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+
         if ($this->Authentication->getIdentity()){
         $user = $this->Users->get($id, [
-            'contain' => [],
+            'contain' => ["Organisations"],
         ]);
+        if (!AppController::$CURRENT_USER->role->is_admin){
+            $this->Flash->error(__('L\'utilisateur n\'a pas pu être enregistrer. Vous n\'avez pas les droits.'));
+            return $this->redirect($this->referer());
+        }
+        if ($user->organisation->id != AppController::$CURRENT_USER->organisation->id){
+            $this->Flash->error(__('L\'utilisateur n\'a pas pu être enregistrer. Vous ne faites pas partie de la même organisation.'));
+            return $this->redirect($this->referer());
+        }
+        $old_mail = $user->email;
+        $old_password = $user->password;
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $new_user = $this->Users->patchEntity($user, $this->request->getData());
+            $new_user->email = $old_mail;
+            $new_user->password = $old_password;
+            if ($this->Users->save($new_user)) {
+                $this->Flash->success(__('Utilisateur sauvegarder.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('L\'utilisateur n\'a pas pu être enregistrer. Contactez l\'administrateur.'));
         }
-        //$discords = $this->Users->Discords->find('list', ['limit' => 200])->all();
             $this->set(compact('user'));
         }
         else{
             $this->Flash->error(__('Vous devez être connecté pour accéder à cette page'));
-            return $this->redirect("/");
+            return $this->redirect($this->referer());
         }
     }
     /**

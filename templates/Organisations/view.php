@@ -29,7 +29,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="text-uppercase text-light">Liste des membres</h3>
                         <?php if ($user->role->is_admin) { ?>
-                            <a target="_blank" href="<?= $this->Url->build("/users/add") ?>"
+                            <a target="_blank" href="<?= $this->Url->build("/users/add") ?>" data-bs-toggle="modal"
+                               data-bs-target="#addMembers"
                                class="btn btn-sm btn-warning">Ajouter <i class="bi bi-plus-lg"></i></a>
                         <?php } ?>
                     </div>
@@ -46,6 +47,66 @@
                         <?php
                         foreach ($organisation->users as $user_orga) {
                             ?>
+                            <div id="editMembers<?= $user_orga->id ?>" class="modal fade" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content bg-dark text-white">
+                                        <div class="modal-body">
+                                            <?= $this->Form->create($user_orga, ['url' => '/users/edit/' . $user_orga->id]) ?>
+                                            <legend>Modifier un membre d'organisation</legend>
+                                            <fieldset>
+                                                <label for="name">Nom</label>
+                                                <input name="id" type="hidden" value="<?= $user_orga->id ?>"
+                                                       placeholder="Nom du membre"
+                                                       required class="form-control my-1">
+
+                                                <input name="name" type="text" value="<?= $user_orga->name ?>"
+                                                       placeholder="Nom du membre"
+                                                       required class="form-control my-1">
+
+                                                <?php if (!$user_orga->role->is_admin) { ?>
+                                                    <label for="role_id">Rôle</label>
+                                                    <select class="form-control text-secondary" name="id_role" required>
+                                                        <?php foreach ($roles as $role) { ?>
+                                                            <?php if (!$role->is_admin) { ?>
+                                                                <?php if ($user_orga->role->id == $role->id) { ?>
+                                                                    <option selected class="text-primary"
+                                                                            value="<?= $role->id ?>"><?= $role->name ?></option>
+                                                                <?php } else { ?>
+                                                                    <option class="text-dark"
+                                                                            value="<?= $role->id ?>"><?= $role->name ?></option>
+                                                                <?php } ?>
+                                                            <?php } ?>
+                                                        <?php } ?>
+                                                    </select>
+                                                <?php } ?>
+                                                <label for="email">Email</label>
+                                                <input name="email" type="email" value="<?= $user_orga->email ?>"
+                                                       placeholder="Email du membre"
+                                                       class="form-control my-1"
+                                                       required>
+
+                                                <label for="tel_ingame">Téléphone en jeu</label>
+                                                <input name="tel_ingame" type="tel" minlength="8" maxlength="8"
+                                                       value="<?= $user_orga->tel_ingame ?>"
+                                                       placeholder="Tel du membre (en jeu...)" class="form-control my-1"
+                                                       required>
+                                                <label for="discord_id">Discord</label>
+                                                <input type="text" name="discord_id" placeholder="Discord du membre"
+                                                       class="form-control my-1" value="<?= $user_orga->discord_id ?>">
+                                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                            data-bs-dismiss="modal">Fermer
+                                                    </button>
+                                                    <button type="submit" class="btn btn-success btn-sm">Sauvegarder <i
+                                                            class="bi bi-check-lg"></i>
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                            <?= $this->Form->end() ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <tr class="text-center">
                                 <td class="border-secondary <?= $user_orga->active && $user_orga->role->active ? '' : 'text-muted' ?> border-start-0"><?= h($user_orga->name) ?></td>
                                 <td class="border-secondary <?= $user_orga->active && $user_orga->role->active ? '' : 'text-muted' ?> border-start"><?= h($user_orga->role->name) ?></td>
@@ -58,8 +119,8 @@
                                 </td>
                                 <td class="d-flex justify-content-around align-items-center border-secondary border-start">
                                     <?php if ($user->role->is_admin) { ?>
-                                        <a href="<?= !\App\Controller\UsersController::isAllowedToEditOrDelete($user_orga) ? '#' : $this->Url->build("/users/edits/" . $user_orga->id) ?>"
-                                           class="btn  <?= !\App\Controller\UsersController::isAllowedToEditOrDelete($user_orga) ? 'disabled' : '' ?> btn-sm btn-primary">
+                                        <a data-bs-toggle="modal" data-bs-target="#editMembers<?= $user_orga->id ?>"
+                                           class="btn  <?= !$user->role->is_admin ? 'disabled' : '' ?> btn-sm btn-primary">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     <?php } ?>
@@ -107,7 +168,9 @@
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content bg-dark text-white">
                                         <div class="modal-header border-bottom-0">
-                                            <a type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Supprimer définitivement <i class="bi bi-eraser"></i></a>
+                                            <a type="button" class="btn btn-outline-danger btn-sm"
+                                               data-bs-dismiss="modal">Supprimer définitivement <i
+                                                    class="bi bi-eraser"></i></a>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
@@ -120,18 +183,27 @@
                                                             <?php
                                                             ?>
                                                             <label for="textInputFormRole">Nom</label>
-                                                            <input class="form-control-color w-100 bg-secondary form-control" type="text" name="name" min="0"
-                                                                   max="45" value="<?= $role->name ?>" required placeholder="Un Nom De Role">
+                                                            <input
+                                                                class="form-control-color w-100 bg-secondary form-control"
+                                                                type="text" name="name" min="0"
+                                                                max="45" value="<?= $role->name ?>" required
+                                                                placeholder="Un Nom De Role">
                                                             <label for="numInputFormRole">Niveau</label>
-                                                            <input id="numInputForm" class="form-control-color w-100 bg-secondary form-control" type="number"
-                                                                   name="level" value="<?= $role->level ?>" min="0" required max="99999" value="0" placeholder="10">
+                                                            <input id="numInputForm"
+                                                                   class="form-control-color w-100 bg-secondary form-control"
+                                                                   type="number"
+                                                                   name="level" value="<?= $role->level ?>" min="0"
+                                                                   required max="99999" value="0" placeholder="10">
                                                             <?php
                                                             ?>
                                                         </fieldset>
                                                         <hr>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
-                                                            <button type="submit" class="btn btn-success btn-sm">Sauvegarder <i class="bi bi-check-lg"></i></button>
+                                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                                    data-bs-dismiss="modal">Fermer
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success btn-sm">
+                                                                Sauvegarder <i class="bi bi-check-lg"></i></button>
                                                         </div>
                                                         <?= $this->Form->end() ?>
                                                     </div>
@@ -152,7 +224,8 @@
                                 </td>
                                 <td class="d-flex justify-content-around align-items-center border-secondary border-start">
                                     <?php if ($user->role->is_admin) { ?>
-                                        <a data-bs-toggle="modal" data-bs-target="#editRoles<?= $role->id ?>" class="btn  <?= !$user->role->is_admin ? 'disabled' : '' ?> btn-sm btn-primary">
+                                        <a data-bs-toggle="modal" data-bs-target="#editRoles<?= $role->id ?>"
+                                           class="btn  <?= !$user->role->is_admin || $role->is_admin ? 'disabled' : '' ?> btn-sm btn-primary">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     <?php } ?>
@@ -200,6 +273,16 @@
         </div>
     </div>
 </div>
+<div id="addMembers" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-body">
+                <?= $this->element("../Users/add") ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="module">
     document.addEventListener('DOMContentLoaded', function () {
