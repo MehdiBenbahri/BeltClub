@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Event $event
+ * @var \App\Model\Entity\Event $events
  */
 ?>
 <!DOCTYPE html>
@@ -16,6 +16,7 @@
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
 </head>
 <body>
 <header>
@@ -40,13 +41,13 @@
                                     style="height: 10rem; background-image: url(<?= $event->event_description->img_path ?>); background-size: cover; object-fit: contain; background-position: center;
                                         background-repeat: no-repeat;"
                                     class="border big-events my-1 ms-4 rounded w-100 border-dark d-flex align-items-end flex-wrap">
-                                    <div class="hover-presentation d-none w-100 text-center text-white">
+                                    <div onclick="window.location = '<?= $this->Url->build('/event/' . $event->id) ?>'" class="hover-presentation d-none w-100 text-center text-white">
                                         <div>
                                             <h1><i class="bi bi-info-circle"></i></a></h1>
                                             cliquez pour plus d'info
                                         </div>
                                     </div>
-                                    <div class="bg-dark  event-presentation p-1 blur-background bg-opacity-75 text-white">
+                                    <div class="bg-dark event-presentation p-1 blur-background bg-opacity-75 text-white">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <h4 class="w-100 z-index-100 text-white">
                                                 <span class="fw-bolder"><?= $event->event_description->title ?></span>
@@ -67,7 +68,7 @@
                     ?>
                 </div>
             </div>
-            <?= $this->element('../Events/view') ?>
+            <?= $this->element('../events/view') ?>
         </div>
     </div>
 </main>

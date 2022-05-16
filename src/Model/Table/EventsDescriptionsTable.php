@@ -55,11 +55,6 @@ class EventsDescriptionsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id_event')
-            ->requirePresence('id_event', 'create')
-            ->notEmptyString('id_event');
-
-        $validator
             ->scalar('title')
             ->maxLength('title', 45)
             ->requirePresence('title', 'create')
@@ -79,6 +74,14 @@ class EventsDescriptionsTable extends Table
 
         $validator
             ->notEmptyString('is_complete');
+
+        $validator
+            ->numeric('posX')
+            ->allowEmptyString('posX');
+
+        $validator
+            ->numeric('posY')
+            ->allowEmptyString('posY');
 
         return $validator;
     }

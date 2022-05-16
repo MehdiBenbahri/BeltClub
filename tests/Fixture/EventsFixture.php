@@ -23,10 +23,11 @@ class EventsFixture extends TestFixture
                 'id_organisation' => 1,
                 'id_event_type' => 1,
                 'id_event_description' => 1,
-                'start_date' => '2022-04-23 11:40:26',
-                'end_date' => '2022-04-23 11:40:26',
-                'created' => '2022-04-23 11:40:26',
-                'modified' => '2022-04-23 11:40:26',
+                'start_date' => '2022-05-12 19:46:10',
+                'end_date' => '2022-05-12 19:46:10',
+                'is_private' => 1,
+                'created' => '2022-05-12 19:46:10',
+                'modified' => '2022-05-12 19:46:10',
             ],
         ];
         parent::init();

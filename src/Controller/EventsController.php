@@ -50,6 +50,30 @@ class EventsController extends AppController
     /**
      * View method
      *
+     * @param int $id Event id.
+     * @return  \App\Model\Entity\Event list of events
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewOne($id)
+    {
+        $event = $this->getEvents($id)->contain([
+            "EventsDescriptions",
+            "EventsLots",
+            "EventsRights",
+            "EventsTypes"
+        ])->first();
+        if ($event)
+        {
+            $lots = $this->fetchTable("EventsLots")->find("all")->where(["id_event" => $event->id])->all();
+        }
+        $this->set(compact('lots'));
+        $this->set(compact('event'));
+
+    }
+
+    /**
+     * View method
+     *
      * @param string|null $id Event id.
      * @return  \App\Model\Entity\Event list of events
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.

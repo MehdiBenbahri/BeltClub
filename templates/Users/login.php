@@ -28,7 +28,7 @@
         <img class="w-100 shadow" src="<?= $this->url->build("/img/banner.png") ?>">
         <h3 class=" p-2 text-center text-uppercase">Contactez le 100-6082 <i class="bi bi-telephone-outbound"></i></h3>
     </div>
-    <div class="border border-warning rounded row m-4 p-1">
+    <div class="border border-warning rounded bg-dark row m-4 p-1">
         <p>- L'achat d'une licenses néssessite une organisation (entreprise, club etc...).</p>
         <p>- Une licence permet de gérer plusieurs types d'événements.</p>
         <p>- Chaque licence permet d'ajouter des utilisateurs de confiance pour aider à gérer les événements.</p>

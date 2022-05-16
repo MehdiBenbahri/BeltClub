@@ -301,7 +301,7 @@
             eventDidMount: function (eventInfo) {
                 console.log(eventInfo.event._def.publicId);
                 if (eventInfo.el.querySelector('.fc-list-event-title')) {
-                    eventInfo.el.querySelector('.fc-list-event-title').innerHTML += '<a target="_blank" href="<?= $this->Url->build("/events/view/") ?>' + eventInfo.event._def.publicId + '" type="button" class="btn shadow me-md-0 me-sm-5 btn-sm btn-warning"><i class="bi bi-three-dots"></i></a>';
+                    eventInfo.el.querySelector('.fc-list-event-title').innerHTML += '<a target="_blank" href="<?= $this->Url->build("/event/") ?>' + eventInfo.event._def.publicId + '" type="button" class="btn shadow me-md-0 me-sm-5 btn-sm btn-warning"><i class="bi bi-three-dots"></i></a>';
                 }
             }
 

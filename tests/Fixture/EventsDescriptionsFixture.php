@@ -20,13 +20,14 @@ class EventsDescriptionsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'id_event' => 1,
                 'title' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'img_path' => 'Lorem ipsum dolor sit amet',
                 'is_complete' => 1,
-                'created' => '2022-04-22 21:02:44',
-                'modified' => '2022-04-22 21:02:44',
+                'posX' => 1,
+                'posY' => 1,
+                'created' => '2022-05-12 19:47:45',
+                'modified' => '2022-05-12 19:47:45',
             ],
         ];
         parent::init();

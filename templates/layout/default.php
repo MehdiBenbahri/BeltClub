@@ -40,7 +40,7 @@
 <nav class="navbar p-1 d-flex  justify-content-between navbar-dark bg-dark position-relative">
     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
         <button class="btn btn-outline-light"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Mes évènements</span> <i class="bi bi-calendar-date"></i></button>
-    <a href="<?= $this->url->build("/organisations/view/" . $user->organisation->id) ?>" class="btn btn-outline-light"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Mon organisation</span> <i class="bi bi-building"></i></a>
+    <a href="<?= $this->url->build("/organisation/" . $user->organisation->id) ?>" class="btn btn-outline-light"><span class="d-xs-none d-sm-none d-md-inline d-lg-inline">Mon organisation</span> <i class="bi bi-building"></i></a>
     </div>
     <span class="text-white pe-1"><?= h($user->name) ?> | <span class="<?= $user->organisation->is_legal ? 'text-light' : 'text-danger'  ?> "><?= h($user->organisation->nom) ?></span> </span>
 </nav>
