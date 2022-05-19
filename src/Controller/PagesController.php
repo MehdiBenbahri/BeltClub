@@ -36,13 +36,10 @@ class PagesController extends AppController
 
     public function home()
     {
-        $table =  $this->fetchTable("Users");
         $user = AppController::$CURRENT_USER;
-        $events = (new EventsController())->getEvents()
-            ->where(["EventsTypes.is_legal" => $user != null ? $user->organisation->is_legal : 1])
-            ->order('Events.start_date DESC', 'EventsTypes.is_legal ASC')
-            ->all();
-        $this->set(compact('events'));
+        $nbAnnonceMarcheNoir = (new EventsController())->getEvents()
+            ->count();
+        $this->set(compact('nbAnnonceMarcheNoir'));
     }
 
     /**

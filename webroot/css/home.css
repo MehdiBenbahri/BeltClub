@@ -1,3 +1,7 @@
+html, body {
+    background-color: #222436 !important;
+}
+
 /* Home page styles */
 @font-face {
     font-family: 'cakefont';
@@ -11,17 +15,17 @@
     font-style: normal;
 }
 
-.big-events{
+.big-events {
     transition-duration: 200ms;
 }
 
-.big-events:hover{
+.big-events:hover {
     transition-duration: 200ms;
     margin: -5px;
     cursor: pointer;
 }
 
-.big-events:hover > .hover-presentation{
+.big-events:hover > .hover-presentation {
     transition-duration: 200ms;
     display: flex !important;
     backdrop-filter: blur(5px);
@@ -30,18 +34,48 @@
     height: 100%;
     align-items: center;
 }
+
 .big-events:hover > .event-presentation {
     transition-duration: 200ms;
     display: none !important;
 }
 
-.leaflet-control-attribution{
+.leaflet-control-attribution {
     display: none;
 }
-.leaflet-bar{
+
+.leaflet-bar {
     border: none !important;
 }
 
-.pan{
+.pan {
     fill: red;
+}
+
+.gray-filter {
+    filter: grayscale(100%);
+}
+
+.credit-card{
+    filter: blur(2px);
+}
+
+.rounded-img{
+    width: 15rem;
+    object-fit: cover;
+    height: 15rem;
+    border-radius: 25rem;
+}
+.object-right{
+    object-position: right;
+}
+
+.glass-effect{
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.21);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
 }

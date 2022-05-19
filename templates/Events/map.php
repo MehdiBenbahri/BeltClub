@@ -9,7 +9,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         var map = L.map('map', {
-            center: [40.727, -74.181],
+            center: [40.733, -74.181],
             zoom: 14.5
         });
         var imageUrl = '<?= $this->Url->Build("/img/gta5mapPlusPericoV2.svg") ?>',

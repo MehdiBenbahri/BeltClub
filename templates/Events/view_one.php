@@ -15,7 +15,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 15rem">
+    height: 20rem">
     <div class="bg-dark w-100 event-presentation p-1 blur-background bg-opacity-75 text-white">
         <div class="d-flex align-items-center justify-content-between ">
             <h4 class="w-100 z-index-100 px-2 text-white animate__animated animate__bounceInLeft">
@@ -36,8 +36,8 @@
             <?= html_entity_decode($event->event_description->details) ?>
         </div>
     <?php } ?>
-    <div class="col-sm-12 my-1 col-md-6 col-lg-6 border-dark border h-100 p-0">
-        <div style="height: 20rem; width: 100%" class="bg-dark bg-opacity-75" id="map"></div>
+    <div class="col-sm-12 my-1 col-md-6 col-lg-6 border-dark border rounded h-100 p-0">
+        <div style="height: 20rem; width: 100%" class="bg-dark bg-opacity-75 rounded" id="map"></div>
     </div>
 </div>
 <script>
@@ -76,11 +76,11 @@
 
     });
 </script>
-<div class="d-flex justify-content-evenly align-items-center flex-wrap mt-3">
+<div class="d-flex justify-content-evenly align-items-center flex-wrap flex-shrink-1 px-5 flex-grow-1 mt-3">
 <?php
 $num = 1;
 foreach ($lots as $lot) { ?>
-    <div class="bg-dark w-25 text-secondary shadow p-3 d-flex justify-content-between align-items-center rounded">
+    <div class="bg-dark w-25 text-secondary shadow p-3 m-3 d-flex justify-content-between align-items-center rounded">
         <?php if ($event->event_type->slug == "enchere" || $event->event_type->slug == "enchere-illegal") { ?>
             <span class="d-flex justify-content-between flex-column">
                 <span class="h5 text-light">LOT #<?= $num ?> : <?= $lot->name ?></span>
@@ -89,7 +89,9 @@ foreach ($lots as $lot) { ?>
             <i class="bi bi-basket2 h1"></i>
         <?php }else{ ?>
             <span>
-                LOT #<?= $num ?> : <?= $lot->name ?>
+                 <span class="h5 text-light">
+                     LOT #<?= $num ?> : <?= $lot->name ?>
+                 </span>
             </span>
             <i class="bi bi-gift-fill h1"></i>
         <?php } ?>
