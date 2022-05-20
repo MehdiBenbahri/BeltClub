@@ -171,14 +171,18 @@ class EventsController extends AppController
      */
     public function getEventsMarket()
     {
-        dd($this->request->getParam("?"));
-        $events = $this->Events->find()
-            ->contain(['EventsTypes', 'EventsDescriptions',])
-            ->where(['Events.id_event_type' => 7])
-            ->where(['EventsTypes.is_legal' => 0])
-            ->offset(10);
+        $query = $this->request->getParam("?")["q"];
+        $page = $this->request->getParam("?")["page"];
+        $annoncesTable = $this->fetchTable("Annonces");
+        $annonces = $annoncesTable->find()
+            ->contain(['Users'])
+            ->where(['Annonces.is_legal' => 0])
+            ->where(['Annonces.title LIKE' => "%". $query ."%"])
+            ->order("Annonces.id","DESC")
+            ->limit(4)
+            ->offset($page * 10);
 
-        return $this->response->withStringBody(json_encode($events))->withStatus(200);
+        return $this->response->withStringBody(json_encode($annonces))->withStatus(200);
 
     }
 

@@ -39,6 +39,7 @@ echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
 
 <script type="text/babel" src="<?= $this->Url->build("/js/react/constLoader.js"); ?>"></script>
 <script type="text/babel" src="<?= $this->Url->build("/js/react/choose.js"); ?>"></script>
+<script type="text/babel" src="<?= $this->Url->build("/js/react/annonce.js"); ?>"></script>
 <script type="text/babel" src="<?= $this->Url->build("/js/react/pagination.js"); ?>"></script>
 <script type="text/babel" src="<?= $this->Url->build("/js/react/market.js"); ?>"></script>
 <script type="text/babel" src="<?= $this->Url->build("/js/react/result.js"); ?>"></script>

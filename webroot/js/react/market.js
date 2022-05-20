@@ -16,7 +16,6 @@ const Market = () => {
                        placeholder="Rechercher des annonces / des offres 🔎"/>
             </div>
             <Pagination query = {query} reset = {reset} />
-
         </div>
     )
 

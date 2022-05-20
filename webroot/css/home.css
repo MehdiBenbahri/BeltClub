@@ -11,7 +11,7 @@ main{
 @media (min-width: 576px) {
     main{
         height: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 }
 
@@ -80,6 +80,14 @@ main{
     height: 15rem;
     border-radius: 25rem;
 }
+
+.rounded-img-sm{
+    width: 10rem;
+    object-fit: cover;
+    height: 10rem;
+    border-radius: 25rem;
+}
+
 .object-right{
     object-position: right;
 }
@@ -88,6 +96,15 @@ main{
     /* From https://css.glass */
     background: rgba(255, 255, 255, 0.21);
     border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.glass-effect-annonce{
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.21);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.7px);
     -webkit-backdrop-filter: blur(5.7px);
@@ -137,7 +154,6 @@ main{
 .card-effect:hover > a:hover {
     color : var(--bs-dark);
 }
-
 
 .card-effect:hover > img {
     -webkit-transition: all 0.2s ease-in;
