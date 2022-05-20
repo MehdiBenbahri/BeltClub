@@ -23,7 +23,7 @@
 
 </head>
 <body>
-<?php if ($this->request->getPath() != "/") { ?>
+<?php if ($this->request->getPath() != "/" && !str_contains($this->request->getPath(),"/app")) { ?>
     <nav class="navbar p-1 justify-content-between navbar-dark bg-dark position-relative">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <a href="<?= $this->Url->build('/') ?>" class="btn btn-outline-warning"><span

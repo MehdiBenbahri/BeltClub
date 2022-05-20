@@ -1,6 +1,7 @@
 html, body {
     background-color: var(--bs-gray-800);
 }
+
 .z-index-100{
     z-index: 100;
 }
@@ -25,57 +26,6 @@ html, body {
     border-radius: 20rem;
 }
 
-.glint-effect{
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-}
-
-
-.glint-effect > img{
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-}
-
-.glint-effect:hover {
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.33) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%); /* W3C */
-    background-blend-mode: color;
-}
-
-.glint-effect > button {
-    transition: all 0.2s ease-in;
-    height: 0px;
-    padding : 0px;
-    color : transparent;
-}
-
-.glint-effect:hover > button {
-    transition: all 0.2s ease-in;
-    height: 3rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    color : var(--bs-light);
-}
-
-.glint-effect:hover > button:hover {
-    color : var(--bs-dark);
-}
-
-
-.glint-effect:hover > img {
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    width: 20rem;
-}
 
 
 .blur-background{

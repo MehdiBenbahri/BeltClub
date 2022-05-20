@@ -47,7 +47,8 @@ class EventsController extends AppController
         }
     }
 
-    public function main(){
+    public function main()
+    {
         $user = AppController::$CURRENT_USER;
         $events = (new EventsController())->getEvents()
             ->where(["EventsTypes.is_legal" => $user != null ? $user->organisation->is_legal : 1])
@@ -71,8 +72,7 @@ class EventsController extends AppController
             "EventsRights",
             "EventsTypes"
         ])->first();
-        if ($event)
-        {
+        if ($event) {
             $lots = $this->fetchTable("EventsLots")->find("all")->where(["id_event" => $event->id])->all();
         }
         $this->set(compact('lots'));
@@ -112,7 +112,6 @@ class EventsController extends AppController
                 ->limit(15);
         }
 
-
         return $event;
     }
 
@@ -128,12 +127,11 @@ class EventsController extends AppController
         if (AppController::$CURRENT_USER->organisation->id == $id) {
             $start = $this->request->getQuery("start");
             $end = $this->request->getQuery("end");
-            if ($start && $end){
+            if ($start && $end) {
                 $events = $this->Events->find()
                     ->contain(['EventsTypes', 'EventsDescriptions',])
-                    ->where(['Events.id_organisation' => $id, 'Events.start_date >=' => $start, 'Events.end_date <=' => $end ]);
-            }
-            else{
+                    ->where(['Events.id_organisation' => $id, 'Events.start_date >=' => $start, 'Events.end_date <=' => $end]);
+            } else {
                 $events = $this->Events->find()
                     ->contain(['EventsTypes', 'EventsDescriptions', 'Organisations', 'EventsLots', 'EventsRights'])
                     ->where(['Events.id_organisation' => $id]);
@@ -149,7 +147,7 @@ class EventsController extends AppController
 //                array("id" => 1222, "start" => "2022-05-05", "title" => "Dave", "editable" => false, "allDay" => true),
 //            );
             $resultArray = [];
-            foreach ($events as $event){
+            foreach ($events as $event) {
                 $resultArray[] = array("id" => $event->id,
                     "start" => $event->start_date,
                     "end" => $event->end_date,
@@ -163,6 +161,27 @@ class EventsController extends AppController
         }
 
     }
+
+    /**
+     * return events of an organisation
+     *
+     * @param string|null $id Organisation id.
+     * @return  \App\Model\Entity\Event list of events
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function getEventsMarket()
+    {
+        dd($this->request->getParam("?"));
+        $events = $this->Events->find()
+            ->contain(['EventsTypes', 'EventsDescriptions',])
+            ->where(['Events.id_event_type' => 7])
+            ->where(['EventsTypes.is_legal' => 0])
+            ->offset(10);
+
+        return $this->response->withStringBody(json_encode($events))->withStatus(200);
+
+    }
+
 
     public function getEventsTypes()
     {

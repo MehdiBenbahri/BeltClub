@@ -38,6 +38,7 @@ class PagesController extends AppController
     {
         $user = AppController::$CURRENT_USER;
         $nbAnnonceMarcheNoir = (new EventsController())->getEvents()
+            ->where(["Events.id_event_type" => 7])
             ->count();
         $this->set(compact('nbAnnonceMarcheNoir'));
     }
