@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\AnnoncesTable;
+use App\Model\Table\TypesAnnoncesTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\AnnoncesTable Test Case
+ * App\Model\Table\TypesAnnoncesTable Test Case
  */
-class AnnoncesTableTest extends TestCase
+class TypesAnnoncesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\AnnoncesTable
+     * @var \App\Model\Table\TypesAnnoncesTable
      */
-    protected $Annonces;
+    protected $TypesAnnonces;
 
     /**
      * Fixtures
@@ -24,8 +24,7 @@ class AnnoncesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Annonces',
-        'app.Users',
+        'app.TypesAnnonces',
     ];
 
     /**
@@ -36,8 +35,8 @@ class AnnoncesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Annonces') ? [] : ['className' => AnnoncesTable::class];
-        $this->Annonces = $this->getTableLocator()->get('Annonces', $config);
+        $config = $this->getTableLocator()->exists('TypesAnnonces') ? [] : ['className' => TypesAnnoncesTable::class];
+        $this->TypesAnnonces = $this->getTableLocator()->get('TypesAnnonces', $config);
     }
 
     /**
@@ -47,7 +46,7 @@ class AnnoncesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Annonces);
+        unset($this->TypesAnnonces);
 
         parent::tearDown();
     }
@@ -56,7 +55,7 @@ class AnnoncesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\AnnoncesTable::validationDefault()
+     * @uses \App\Model\Table\TypesAnnoncesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

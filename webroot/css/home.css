@@ -82,9 +82,9 @@ main{
 }
 
 .rounded-img-sm{
-    width: 10rem;
+    width: 7rem;
     object-fit: cover;
-    height: 10rem;
+    height: auto;
     border-radius: 25rem;
 }
 

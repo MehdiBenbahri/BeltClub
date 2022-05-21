@@ -18,7 +18,7 @@ const Pagination = (query) => {
 
         for (let i = 0; i < ((nbAnnonceMarcheNoir / 10) + pageNumber); i++) {
             if (i <= nbAnnonceMarcheNoir / 10) {
-                if (pageNumber <= i + 3 && pageNumber >= i - 3){
+                if (pageNumber <= i + 3 && pageNumber >= i - 3) {
                     if (i == pageNumber) {
                         list.push(<button key={"button-" + i} onClick={() => {
                             setPageNumber(i)
@@ -40,10 +40,20 @@ const Pagination = (query) => {
 
     return (
         <div>
-            <div className="d-flex flex-column justify-content-center align-items-center flex-wrap mt-3">
-                <Search q={query.query} pageNumber={pageNumber}/>
+            <div className="row p-5">
+                <div className="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+                    <Search q={query.query} pageNumber={pageNumber}/>
+                </div>
+                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 bg-secondary rounded">
+                    <h6 className="text-light mt-3">Filtre</h6>
+                    <select className="form-select" name="" id="">
+                        <option value="">BERETTA</option>
+                    </select>
+                    <h6 className="text-light mt-3">Ajouter une annonce</h6>
+                    
+                </div>
             </div>
-            <div className="d-flex justify-content-evenly align-items-center flex-wrap mt-3">
+            <div className="d-flex justify-content-evenly align-items-center flex-wrap mt-1">
                 <div className="w-75 d-flex justify-content-center align-items-center flex-wrap">
                     {getButtons()}
                 </div>

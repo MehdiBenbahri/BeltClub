@@ -41,6 +41,10 @@ class AnnoncesTable extends Table
             ->setForeignKey('id_user')
             ->setProperty('user');
 
+        $this->belongsTo('TypesAnnonces')
+            ->setForeignKey('id_type_annonce')
+            ->setProperty('type');
+
         $this->setTable('annonces');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
@@ -60,6 +64,11 @@ class AnnoncesTable extends Table
             ->notEmptyString('id_user');
 
         $validator
+            ->integer('id_type_annonce')
+            ->requirePresence('id_type_annonce', 'create')
+            ->notEmptyString('id_type_annonce');
+
+        $validator
             ->scalar('title')
             ->maxLength('title', 45)
             ->requirePresence('title', 'create')
@@ -72,7 +81,30 @@ class AnnoncesTable extends Table
             ->notEmptyString('description');
 
         $validator
+            ->integer('price')
+            ->requirePresence('price', 'create')
+            ->notEmptyString('price');
+
+        $validator
             ->notEmptyString('is_negociable');
+
+        $validator
+            ->notEmptyString('is_legal');
+
+        $validator
+            ->notEmptyString('is_complete');
+
+        $validator
+            ->scalar('posX')
+            ->maxLength('posX', 45)
+            ->requirePresence('posX', 'create')
+            ->notEmptyString('posX');
+
+        $validator
+            ->scalar('posY')
+            ->maxLength('posY', 45)
+            ->requirePresence('posY', 'create')
+            ->notEmptyString('posY');
 
         return $validator;
     }

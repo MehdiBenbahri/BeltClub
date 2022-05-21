@@ -31,9 +31,12 @@ const Search = (query) => {
             setAnnonces(prevBooks => {
                 //return [...new Set([...prevBooks, ...res.data.docs.map(b => b.title)])]
                 console.log(res.data);
+
                 return res.data.map(obj =>
                     <Annonce key={obj.id} obj={obj}/>
                 );
+
+
             })
             setHasMore(res.data.length > 0)
             setLoading(false)

@@ -10,6 +10,7 @@ const CSRF = $('meta[name="csrfToken"]').attr('content');
 const marketAnnonceUrl = document.getElementById("marketAnnonceUrl").value;
 const blackMarketImg = document.getElementById("blackMarketImg").value;
 const eventImg = document.getElementById("eventImg").value;
+const annonceImg = document.getElementById("annonceImg").value;
 const routerBase = document.getElementById("routerBase").value;
 var nbAnnonceMarcheNoir = document.getElementById("numMarketAnnonce").value;
 

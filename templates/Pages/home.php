@@ -6,6 +6,7 @@
  */
 echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
 ?>
+<input type="hidden" id="annonceImg" value="<?= $this->Url->build("/img/annonce/") ?>">
 <input type="hidden" id="eventImg" value="<?= $this->Url->build("/img/placeholder/tombolla_placeholder.png") ?>">
 <input type="hidden" id="blackMarketImg" value="<?= $this->Url->build("/img/placeholder/enchere_illegal_placeholder.png") ?>">
 <input type="hidden" id="numMarketAnnonce" value="<?= $nbAnnonceMarcheNoir ?>">

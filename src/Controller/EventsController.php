@@ -175,7 +175,7 @@ class EventsController extends AppController
         $page = $this->request->getParam("?")["page"];
         $annoncesTable = $this->fetchTable("Annonces");
         $annonces = $annoncesTable->find()
-            ->contain(['Users'])
+            ->contain(['Users','TypesAnnonces'])
             ->where(['Annonces.is_legal' => 0])
             ->where(['Annonces.title LIKE' => "%". $query ."%"])
             ->order("Annonces.id","DESC")
