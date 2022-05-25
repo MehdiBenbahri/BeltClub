@@ -166,3 +166,30 @@ main{
 .center-placeholder::placeholder{
     text-align: center;
 }
+
+.bg-dark-blue{
+    background-color: #141521;
+}
+
+.container {
+    margin-top: 50px;
+}
+.choices__inner {
+    border-radius: 0px;
+    background-color: var(--bs-dark) !important;
+}
+
+.choices__input .choices__input--cloned{
+    background-color: var(--bs-gray-800) !important;
+}
+
+.choices__item{
+    background-color: var(--bs-gray-800) !important;
+}
+
+.choices__list--multiple .choices__item {
+    background-color: var(--bs-warning) !important;
+    color : var(--bs-dark) !important;
+    border: 1px solid var(--bs-orange) !important;
+    border-radius: 0px;
+}

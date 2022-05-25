@@ -8,6 +8,7 @@ const Pagination = (query) => {
             setPageNumber(0);
             SetLastQuery(query.query);
         }
+        loadChoices();
     })
 
     function getButtons() {
@@ -34,25 +35,49 @@ const Pagination = (query) => {
         }
         list.push(<button key={"button-next"} onClick={() => {
             setPageNumber(nbAnnonceMarcheNoir / 10)
-        }} className="btn m-1 btn-outline-light"><i className="bi bi-caret-right-fill"></i></button>)
+        }} className="btn m-1 btn-outline-light"><i className="bi bi-caret-right-fill"></i></button>);
         return list;
+    }
+
+    function loadChoices(){
+        let element = document.getElementById('tags-select');
+        console.log(element);
+        if (element != null){
+            let choices = new Choices(element,{
+                maxItemCount: -1,
+                allowHTML: false,
+                editItems: false,
+                searchEnabled: false,
+                searchChoices: false,
+                noResultsText: 'Aucun résultat trouvé',
+                noChoicesText: 'Aucun résultat trouvé',
+                itemSelectText: 'Cliquez pour sélectionner',
+            });
+        }
     }
 
     return (
         <div>
-            <div className="row p-5">
+            <div className="d-flex justify-content-evenly align-items-center flex-wrap mt-1">
+                <div className="w-75 d-flex justify-content-center align-items-center flex-wrap">
+                    {getButtons()}
+                </div>
+            </div>
+            <div className="row px-5">
+                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 bg-dark-blue rounded">
+                    <h6 className="text-light mt-3 text-uppercase">Filtres</h6>
+                    <select multiple="multiple" className="form-select bg-dark" id="tags-select">
+                        <option value="BERETTA">BERETTA</option>
+                        <option value="BERETTB">AK-COMPACT</option>
+                        <option value="BERETTC">GUNSENBERG</option>
+                    </select>
+                    <h6 className="text-light mt-3 text-uppercase">Ajouter une annonce</h6>
+                </div>
                 <div className="col-xl-8 col-lg-8 col-md-6 col-sm-12">
                     <Search q={query.query} pageNumber={pageNumber}/>
                 </div>
-                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 bg-secondary rounded">
-                    <h6 className="text-light mt-3">Filtre</h6>
-                    <select className="form-select" name="" id="">
-                        <option value="">BERETTA</option>
-                    </select>
-                    <h6 className="text-light mt-3">Ajouter une annonce</h6>
-                    
-                </div>
             </div>
+            <hr/>
             <div className="d-flex justify-content-evenly align-items-center flex-wrap mt-1">
                 <div className="w-75 d-flex justify-content-center align-items-center flex-wrap">
                     {getButtons()}

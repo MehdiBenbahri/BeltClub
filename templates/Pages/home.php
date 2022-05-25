@@ -6,6 +6,14 @@
  */
 echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
 ?>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/base.min.css"
+/>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/>
 <input type="hidden" id="annonceImg" value="<?= $this->Url->build("/img/annonce/") ?>">
 <input type="hidden" id="eventImg" value="<?= $this->Url->build("/img/placeholder/tombolla_placeholder.png") ?>">
 <input type="hidden" id="blackMarketImg" value="<?= $this->Url->build("/img/placeholder/enchere_illegal_placeholder.png") ?>">
@@ -31,7 +39,7 @@ echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
 
 <!-- Load history -->
 <script src="https://unpkg.com/history@5/umd/history.development.js" crossorigin></script>
-
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <!-- Load React Router and React Router DOM -->
 <script src="https://unpkg.com/react-router@6/umd/react-router.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin></script>
